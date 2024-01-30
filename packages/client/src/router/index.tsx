@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <ProtectedRoute />,
-        loader: () => getUserLoader(false),
+        // loader: () => getUserLoader(false),
         children: [
           {
             path: '/',
@@ -45,12 +45,12 @@ const router = createBrowserRouter([
               {
                 path: 'settings',
                 element: <Settings />,
-                action: userProfileAction
+                action: userProfileAction,
               },
               {
                 path: 'password-edit',
                 element: <PasswordEdit />,
-                action: userPasswordAction
+                action: userPasswordAction,
               },
               {
                 path: 'game',

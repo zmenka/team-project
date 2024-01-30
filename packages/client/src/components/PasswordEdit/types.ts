@@ -10,4 +10,5 @@ export interface IPwdEditFormData {
 }
 export interface IPwdEditData {
   formData: IPwdEditFormData
+  title: string
 }

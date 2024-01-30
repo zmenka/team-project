@@ -5,7 +5,8 @@ const ProtectedRoute = () => {
 
   console.log(isAuth)
 
-  return isAuth ? <Outlet /> : <Navigate to="/sign-in" replace />
+  // return isAuth ? <Outlet /> : <Navigate to="/sign-in" replace />
+  return <Outlet />
 }
 
 export default ProtectedRoute
