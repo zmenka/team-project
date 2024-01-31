@@ -21,9 +21,4 @@ self.addEventListener('install', event => {
       return cache.addAll(['./assets/', './index.html', './snake.svg'])
     })
   )
-  event.waitUntil(
-    caches.keys().then(keys => {
-      console.log('KEYS', keys)
-    })
-  )
 })
