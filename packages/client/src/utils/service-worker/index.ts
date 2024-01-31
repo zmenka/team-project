@@ -8,6 +8,7 @@ export const register = async (
       console.log('load')
       try {
         await registerSW(swUrl, options)
+        checkIfExist()
       } catch (e) {
         console.error(`Registration failed with ${e}`)
       }
@@ -23,5 +24,11 @@ const registerSW = async (swUrl: string, options?: RegistrationOptions) => {
     console.log('Service worker installed')
   } else if (registration.active) {
     console.log('Service worker active')
+  }
+}
+
+const checkIfExist = () => {
+  if (navigator.serviceWorker.controller) {
+    console.log('we have Service worker installed')
   }
 }

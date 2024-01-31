@@ -18,7 +18,7 @@ self.addEventListener('install', event => {
   console.log('install 123')
   event.waitUntil(
     caches.open('v1').then(cache => {
-      return cache.addAll(['./assets/', './index.html', './snake.svg'])
+      return cache.addAll(['/', '/assets/', '/index.html', '/snake.svg'])
     })
   )
 })
