@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import FullScreenButton from '../FullScreenButton'
 import GameEndDialog from '../GameEndDialog'
 import { Snake } from './Snake'
 import { Apple } from './Apple'
-import { sprites, GRID_SIZE } from './constants'
+import { sprites, GRID_SIZE, sounds } from './constants'
+import Notifications from '../../utils/notifications'
 
 import './style.css'
 
@@ -21,6 +22,12 @@ function Game() {
   const [score, setScore] = useState(0)
 
   const requestRef = useRef(0)
+
+  const showNotificationWithResult = useCallback(() => {
+    Notifications.sendNotification(
+      `Набрано очков: ${score}. Рекорд: ${record}.`
+    )
+  }, [score, record])
 
   useEffect(() => {
     window.addEventListener('keydown', snakeRef.current.setSnakeControllers)
@@ -54,7 +61,7 @@ function Game() {
     return () => {
       cancelAnimationFrame(requestRef.current)
     }
-  }, [isStopped])
+  }, [isStopped, showNotificationWithResult])
 
   function gameLoop() {
     const canvas = canvasRef.current
@@ -77,8 +84,13 @@ function Game() {
 
     if (snake.snakeIsOutTheField(context) || snake.hasCollisions()) {
       snake.reInit()
+
       setIsStopped(true)
       setOpenEndGameModal(true)
+
+      sounds.loseSound.play()
+
+      showNotificationWithResult()
     }
 
     if (snake.appleWasEaten(apple)) {
@@ -88,6 +100,8 @@ function Game() {
       apple.move(canvas)
 
       updateScore()
+
+      sounds.eatingSound.play()
     }
 
     snake.draw(context, sprites.gameSprites)

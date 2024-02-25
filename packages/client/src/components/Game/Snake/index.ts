@@ -1,4 +1,4 @@
-import { GRID_SIZE, SPRITE_GRID_SIZE } from '../constants'
+import { GRID_SIZE, SPRITE_GRID_SIZE, sounds } from '../constants'
 import { Apple } from '../Apple'
 
 export class Snake {
@@ -32,6 +32,8 @@ export class Snake {
       this.dy = GRID_SIZE
       this.dx = 0
     }
+
+    sounds.stepSound.play()
   }
 
   move = () => {
